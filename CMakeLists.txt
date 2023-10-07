@@ -1,0 +1,46 @@
+if(IDF_TARGET STREQUAL "esp32" OR IDF_TARGET STREQUAL "esp32s2" OR IDF_TARGET STREQUAL "esp32s3")
+  set(COMPONENT_SRCS
+    src/libwifi/core/core.c
+    src/libwifi/core/frame/tag_iterator.c
+    src/libwifi/core/frame/tag.c
+    src/libwifi/core/frame/frame.c
+    src/libwifi/core/frame/crc.c
+    src/libwifi/core/misc/epoch.c
+    src/libwifi/core/radiotap/radiotap.c
+    src/libwifi/gen/control/cts.c
+    src/libwifi/gen/control/rts.c
+    src/libwifi/gen/management/action.c
+    src/libwifi/gen/management/assoc_request.c
+    src/libwifi/gen/management/assoc_response.c
+    src/libwifi/gen/management/atim.c
+    src/libwifi/gen/management/authentication.c
+    src/libwifi/gen/management/beacon.c
+    src/libwifi/gen/management/deauthentication.c
+    src/libwifi/gen/management/disassociation.c
+    src/libwifi/gen/management/probe_request.c
+    src/libwifi/gen/management/probe_response.c
+    src/libwifi/gen/management/reassoc_request.c
+    src/libwifi/gen/management/reassoc_response.c
+    src/libwifi/gen/management/timing_ad.c
+    src/libwifi/gen/misc/radiotap.c
+    src/libwifi/parse/data/data.c
+    src/libwifi/parse/data/eapol.c
+    src/libwifi/parse/management/assoc_request.c
+    src/libwifi/parse/management/assoc_response.c
+    src/libwifi/parse/management/beacon.c
+    src/libwifi/parse/management/common.c
+    src/libwifi/parse/management/deauthentication.c
+    src/libwifi/parse/management/disassociation.c
+    src/libwifi/parse/management/probe_request.c
+    src/libwifi/parse/management/probe_response.c
+    src/libwifi/parse/management/reassoc_request.c
+    src/libwifi/parse/management/reassoc_response.c
+    src/libwifi/parse/misc/radiotap.c
+    src/libwifi/parse/misc/security.c
+    )
+
+  set(COMPONENT_ADD_INCLUDEDIRS
+    src
+    )
+  register_component()
+endif()
