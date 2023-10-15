@@ -90,3 +90,59 @@ int libwifi_parse_assoc_resp(struct libwifi_bss *bss, struct libwifi_frame *fram
 
     return 0;
 }
+
+
+/**
+ * libwifi_parse_assoc_resp will parse useful information out of a Probe Response
+ * into a struct libwifi_bss. As Probe Response frames are very similar to Beacon
+ * frames, they can be treated in much the same way.
+ *
+ * ┌─────────────────────────────────────────────┐
+ * │        Header (Ordered or Unordered)        │  ── Probe Response Header
+ * ├─────────────────────────────────────────────┤
+ * │               Fixed Parameters              │  ─┐
+ * ├─────────────────────────────────────────────┤   ├──  Probe Response Body
+ * │              Tagged  Parameters             │  ─┘
+ * └─────────────────────────────────────────────┘
+ */
+int libwifi_parse_assoc_response(struct libwifi_assoc_resp *assoc_resp, struct libwifi_frame *frame){
+    memset(assoc_resp, 0, sizeof(struct libwifi_assoc_resp));
+
+    if (frame->frame_control.type != TYPE_MANAGEMENT || frame->frame_control.subtype != SUBTYPE_AUTH) {
+        return -EINVAL;
+    }
+
+    if (frame->frame_control.flags.ordered) {
+        memcpy(&assoc_resp->frame_header.addr1, frame->header.mgmt_ordered.addr1, 6);
+        memcpy(&assoc_resp->frame_header.addr2, frame->header.mgmt_ordered.addr2, 6);
+        memcpy(&assoc_resp->frame_header.addr3, frame->header.mgmt_ordered.addr3, 6);
+    } else {
+        memcpy(&assoc_resp->frame_header.addr1, frame->header.mgmt_unordered.addr1, 6);
+        memcpy(&assoc_resp->frame_header.addr2, frame->header.mgmt_unordered.addr2, 6);
+        memcpy(&assoc_resp->frame_header.addr3, frame->header.mgmt_unordered.addr3, 6);
+    }
+
+    // Fixed Parameters must be present
+    if (frame->len <= (frame->header_len + sizeof(struct libwifi_assoc_resp_fixed_parameters))) {
+        return -EINVAL;
+    }
+
+    struct libwifi_assoc_resp_fixed_parameters *fixed_params = (struct libwifi_assoc_resp_fixed_parameters *) frame->body;
+    memcpy(&assoc_resp->fixed_parameters, fixed_params, sizeof(struct libwifi_assoc_resp_fixed_parameters));
+    /*auth->tags.length = (frame->len - (frame->header_len + sizeof(struct libwifi_auth_fixed_parameters)));
+    const unsigned char *tagged_params = frame->body + sizeof(struct libwifi_auth_fixed_parameters);
+    auth->tags.parameters = malloc(auth->tags.length);
+    memcpy(auth->tags.parameters, tagged_params, auth->tags.length);
+
+    // Iterate through common BSS tagged parameters (WPA, RSN, etc)
+    struct libwifi_tag_iterator it;
+    memset(&it, 0, sizeof(struct libwifi_tag_iterator));
+    if (libwifi_tag_iterator_init(&it, auth->tags.parameters, auth->tags.length) != 0) {
+        return -EINVAL;
+    }
+    if (libwifi_bss_tag_parser(auth, &it) != 0) {
+        return -EINVAL;
+    };*/
+
+    return 0;
+}

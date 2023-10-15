@@ -160,6 +160,7 @@
 #define LIBWIFI_RSN_CAPAB_PEERKEY (1 << 9)
 #define LIBWIFI_RSN_CAPAB_EXT_KEY_ID (1 << 13)
 
+
 /**
  * libwifi Representation of a WPA or RSN cipher suite
  * ┌────────────────────────┬────────────┐

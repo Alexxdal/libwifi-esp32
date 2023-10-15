@@ -35,6 +35,7 @@ if(IDF_TARGET STREQUAL "esp32" OR IDF_TARGET STREQUAL "esp32s2" OR IDF_TARGET ST
     src/libwifi/parse/management/probe_response.c
     src/libwifi/parse/management/reassoc_request.c
     src/libwifi/parse/management/reassoc_response.c
+    src/libwifi/parse/management/authentication_response.c
     src/libwifi/parse/misc/radiotap.c
     src/libwifi/parse/misc/security.c
     )

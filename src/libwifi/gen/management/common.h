@@ -51,4 +51,11 @@
  */
 #define LIBWIFI_DEFAULT_SUPP_RATES "\x82\x84\x8b\x96\x24\x30\x48\x6c"
 
+/**
+ * A sane default for the supported rates frame field.
+ *
+ * 1, 2, 5.5, 11, 18, 24, 36, 54 Mbit/s
+ */
+#define LIBWIFI_DEFAULT_SUPP_RATES_EXTENDED "\x0c\x12\x18\x60"
+
 #endif /* LIBWIFI_GEN_COMMON_H */

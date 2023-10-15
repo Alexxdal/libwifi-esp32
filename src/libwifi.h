@@ -65,6 +65,7 @@ extern "C" {
 #include "libwifi/parse/management/probe_response.h"
 #include "libwifi/parse/management/reassoc_request.h"
 #include "libwifi/parse/management/reassoc_response.h"
+#include "libwifi/parse/management/authentication_response.h"
 #include "libwifi/parse/misc/radiotap.h"
 #include "libwifi/parse/misc/security.h"
 

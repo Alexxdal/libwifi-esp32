@@ -61,6 +61,18 @@ int libwifi_create_assoc_req(struct libwifi_assoc_req *assoc_req,
         return ret;
     }
 
+    const unsigned char supported_rates[] = LIBWIFI_DEFAULT_SUPP_RATES;
+    ret = libwifi_quick_add_tag(&assoc_req->tags, TAG_SUPP_RATES, supported_rates, sizeof(supported_rates) - 1);
+    if (ret != 0) {
+        return ret;
+    }
+
+    const unsigned char supported_rates_extended[] = LIBWIFI_DEFAULT_SUPP_RATES_EXTENDED;
+    ret = libwifi_quick_add_tag(&assoc_req->tags, TAG_EXTENDED_SUPPORTED_RATES, supported_rates_extended, sizeof(supported_rates_extended) - 1);
+    if (ret != 0) {
+        return ret;
+    }
+
     return 0;
 }
 

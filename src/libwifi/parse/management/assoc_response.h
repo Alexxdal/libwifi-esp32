@@ -32,4 +32,7 @@
  */
 int libwifi_parse_assoc_resp(struct libwifi_bss *bss, struct libwifi_frame *frame);
 
+
+int libwifi_parse_assoc_response(struct libwifi_assoc_resp *assoc_resp, struct libwifi_frame *frame);
+
 #endif /* LIBWIFI_PARSE_ASSOCRESP_H */
